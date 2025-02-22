@@ -38,7 +38,7 @@ n8n-puppeteer/
 1.  **Clone the Repository:**
 
     ```bash
-    git clone git clone https://github.com/devszilla/n8n-puppeteer.git
+    git clone https://github.com/devszilla/n8n-puppeteer.git
     cd n8n-puppeteer
     ```
 
