@@ -3,6 +3,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        N8N_VERSION: ${N8N_VERSION}
+    image: n8n-puppeteer:${N8N_VERSION}
     container_name: n8n
     environment:
       - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
@@ -11,7 +14,9 @@ services:
       - "5678:5678"
     volumes:
       - n8n_data:/home/node/.n8n
-    restart: always
+    restart: unless-stopped
+    privileged: true
+    shm_size: "1gb"
     networks:
       - n8n-network
 

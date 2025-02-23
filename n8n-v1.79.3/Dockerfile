@@ -1,5 +1,8 @@
-# Use the official n8n base image
-FROM n8nio/n8n:latest
+# Use build argument for N8N version
+ARG N8N_VERSION
+
+# Use the specified n8n version
+FROM n8nio/n8n:${N8N_VERSION}
 
 # Switch to root user for package installation to have sufficient permissions
 USER root
