@@ -1,0 +1,29 @@
+services:
+  n8n:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        N8N_VERSION: ${N8N_VERSION}
+    image: n8n-puppeteer:${N8N_VERSION}
+    container_name: n8n
+    environment:
+      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
+      - N8N_RUNNERS_ENABLED=true
+      - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY}
+    ports:
+      - "5678:5678"
+    volumes:
+      - n8n_data:/home/node/.n8n
+    restart: unless-stopped
+    privileged: true
+    shm_size: "1gb"
+    networks:
+      - n8n-network
+
+networks:
+  n8n-network:
+    driver: bridge
+
+volumes:
+  n8n_data:
