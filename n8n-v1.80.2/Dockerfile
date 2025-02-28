@@ -17,14 +17,16 @@ RUN apk --update add --virtual build-dependencies python3 build-base ca-certific
     apk del build-dependencies \
     && rm -rf /root /tmp/* /var/cache/apk/* && mkdir /root;
 
+RUN npm install -g cheerio
+
 # Installs latest Chromium (100) package.
 RUN apk add --no-cache \
-      chromium \
-      nss \
-      freetype \
-      harfbuzz \
-      ttf-freefont \
-      yarn
+    chromium \
+    nss \
+    freetype \
+    harfbuzz \
+    ttf-freefont \
+    yarn
 
 # Tell Puppeteer to skip installing Chrome. We'll be using the installed package.
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
@@ -41,11 +43,11 @@ RUN npm install --prefix /home/node/.n8n/nodes
 
 # Install fonts
 RUN apk --no-cache add --virtual fonts msttcorefonts-installer fontconfig && \
-	update-ms-fonts && \
-	fc-cache -f && \
-	apk del fonts && \
-	find  /usr/share/fonts/truetype/msttcorefonts/ -type l -exec unlink {} \; \
-	&& rm -rf /root /tmp/* /var/cache/apk/* && mkdir /root
+    update-ms-fonts && \
+    fc-cache -f && \
+    apk del fonts && \
+    find  /usr/share/fonts/truetype/msttcorefonts/ -type l -exec unlink {} \; \
+    && rm -rf /root /tmp/* /var/cache/apk/* && mkdir /root
 
 ENV NODE_ICU_DATA /usr/local/lib/node_modules/full-icu
 

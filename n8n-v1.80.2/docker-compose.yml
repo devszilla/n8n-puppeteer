@@ -6,11 +6,9 @@ services:
       args:
         N8N_VERSION: ${N8N_VERSION}
     image: n8n-puppeteer:${N8N_VERSION}
-    container_name: n8n
-    environment:
-      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
-      - N8N_RUNNERS_ENABLED=true
-      - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY}
+    container_name: n8n-puppeteer
+    env_file:
+      - .env
     ports:
       - "5678:5678"
     volumes:
